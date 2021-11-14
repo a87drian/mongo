@@ -1,0 +1,85 @@
+// PUNTO 1
+
+mongo ecommerce // fuera del cliente
+
+ db.createCollection('messages')
+
+ db.createCollection('products')
+
+ db.messages.insertMany([
+     {author: 'Adrian', text: 'hola ¿como va?' },
+     {author: 'Yamila', text: 'hola, bien y vos' },
+     {author: 'Gaston', text: 'hola ¿como va?' },
+     {author: 'Cata', text: 'hola, bien y vos' },
+     {author: 'Julia', text: 'hola ¿como va?' },
+     {author: 'Tiziano', text: 'hola, bien y vos' },
+     {author: 'Pedro', text: 'hola ¿como va?' },
+     {author: 'Romina', text: 'hola, bien y vos' },
+     {author: 'Caro', text: 'hola ¿como va?' },
+     {author: 'Vale', text: 'hola, bien y vos' }
+ ])
+
+ db.products.insertMany([
+     {name: 'lapiz 1', description: 'lapiz', code: 1001, photo: '', price: 3150, stock: 15 },
+     {name: 'lapiz 2', description: 'lapiz', code: 1221, photo: '', price: 1500, stock: 15 },
+     {name: 'lapiz 3', description: 'lapiz', code: 1331, photo: '', price: 5000, stock: 15 },
+     {name: 'lapiz 4', description: 'lapiz', code: 1441, photo: '', price: 3150, stock: 15 },
+     {name: 'lapiz 5', description: 'lapiz', code: 1551, photo: '', price: 500, stock: 15 },
+     {name: 'lapiz 6', description: 'lapiz', code: 1881, photo: '', price: 5000, stock: 15 },
+     {name: 'lapiz 7', description: 'lapiz', code: 1010, photo: '', price: 2500, stock: 15 },
+     {name: 'lapiz 8', description: 'lapiz', code: 1101, photo: '', price: 5000, stock: 15 },
+     {name: 'lapiz 8', description: 'lapiz', code: 1111, photo: '', price: 500, stock: 15 },
+     {name: 'lapiz 10', description: 'lapiz', code: 1010, photo: '', price: 3150, stock: 15 },
+     ])
+
+//PUNTO 3
+     db.messages.find().pretty()
+     db.products.find().pretty()
+
+//PUNTO 4
+    db.messages.count()
+    db.products.count()
+
+//PUNTO 5
+// a
+    db.products.insertOne(
+        {name: 'lapiz 87', description: 'lapiz', code: 1011, photo: '', price: 4500, stock: 5 }
+    )    
+// b
+
+    db.products.find({name: 'lapiz 87'})
+
+// b i
+
+       db.products.find({price: {$lt: 1000}})
+
+// b ii
+
+        db.products.find({$and: [{price: {$gt:1000}}, {price: {$lt:5000}}]})
+
+// b iii
+
+       db.products.find({price: {$gt: 3000}})
+
+// b iv
+        db.products.find({}, {name: 1, _id:0}).sort({price: 1}).skip(2).limit(1)
+
+// c
+        db.products.updateMany({},{$set: {stock: 100}})
+
+// d
+        db.products.updateMany({ price: {$gt: 4000} , { $set: {stock:0}})
+
+// e 
+
+        db.products.deleteMany({ price: {$lt: 1000}})
+
+// 6
+        db.createUser({
+            user: 'pepe',
+            pwd: 'asd456',
+            roles: [
+                { role: 'read', db: 'ecommerce' }
+                ]
+        })
+
